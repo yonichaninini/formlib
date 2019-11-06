@@ -19,6 +19,7 @@ const TextField = ({
   useEffect(() => {
     if (ref.current) {
       registerField({ name: fieldName, ref: ref.current, path: "value" });
+      console.log(ref.current);
     }
   }, [fieldName, registerField]);
 
