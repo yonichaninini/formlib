@@ -1,18 +1,27 @@
-import React from "react";
-import Validation from "../utill/Validation";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+
+import Validation from "../utill/Validation";
+import useField from "../../useField";
+
 const TextField = ({
   placeholder,
   type,
-  value,
-  onChange,
   validation,
   myValidation,
   notValidMsg,
-  name
+  name,
+  required
   //style
 }) => {
-  console.log(myValidation);
+  const ref = useRef(null);
+  const { fieldName, registerField } = useField(name);
+  useEffect(() => {
+    if (ref.current) {
+      registerField({ name: fieldName, ref: ref.current, path: "value" });
+    }
+  }, [fieldName, registerField]);
+
   let isValid = false;
   const style = {
     textInput: {
@@ -28,6 +37,10 @@ const TextField = ({
       fontSize: "10px"
     }
   };
+  const [inputValue, setInputValue] = useState(null);
+  const onchange = e => {
+    setInputValue(e.target.value);
+  };
   if (
     validation === "email" ||
     validation === "phoneNumber" ||
@@ -35,17 +48,17 @@ const TextField = ({
     validation === "url"
   ) {
     if (validation === "email") {
-      isValid = Validation.isEmail(value);
+      isValid = Validation.isEmail(inputValue);
     } else if (validation === "phoneNumber") {
-      isValid = Validation.isPhoneNumber(value);
+      isValid = Validation.isPhoneNumber(inputValue);
     } else if (validation === "residentNumber") {
-      isValid = Validation.isResidentNumber(value);
+      isValid = Validation.isResidentNumber(inputValue);
     } else if (validation === "url") {
-      isValid = Validation.isUrl(value);
+      isValid = Validation.isUrl(inputValue);
     }
   } else if (validation === undefined) {
     if (myValidation !== undefined) {
-      if (myValidation.test(value)) {
+      if (myValidation.test(inputValue)) {
         isValid = true;
       } else {
         isValid = false;
@@ -61,9 +74,10 @@ const TextField = ({
         style={style.textInput}
         type={type}
         placeholder={placeholder}
-        onChange={onChange}
-        value={value}
         name={name}
+        onChange={onchange}
+        required={required}
+        ref={ref}
       />
       <span className="notValidMsg" style={style.notValidMsg}>
         {isValid ? "" : notValidMsg}
@@ -73,13 +87,21 @@ const TextField = ({
 };
 TextField.propTypes = {
   placeholder: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
   myValidation: PropTypes.instanceOf(RegExp),
-  validation: PropTypes.oneOf(["email", "phoneNumber", "residentNumber", "url"])
+  validation: PropTypes.oneOf([
+    "email",
+    "phoneNumber",
+    "residentNumber",
+    "url"
+  ]),
+  type: PropTypes.oneOf(["text", "password", "email", "search", "url"])
+  //required: Boolean
 };
 TextField.defaultProps = {
   validation: undefined,
-  notValidMsg: ""
+  notValidMsg: "",
+  type: "text",
+  required: false
 };
 
 export default TextField;
