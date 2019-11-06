@@ -21,7 +21,7 @@ const TextField = ({
       registerField({ name: fieldName, ref: ref.current, path: "value" });
       console.log(ref.current);
     }
-  }, [fieldName, registerField]);
+  }, [fieldName, ref, registerField]);
 
   let isValid = false;
   const style = {
@@ -89,6 +89,7 @@ const TextField = ({
 TextField.propTypes = {
   placeholder: PropTypes.string,
   myValidation: PropTypes.instanceOf(RegExp),
+  name: PropTypes.string.isRequired,
   validation: PropTypes.oneOf([
     "email",
     "phoneNumber",
@@ -96,7 +97,6 @@ TextField.propTypes = {
     "url"
   ]),
   type: PropTypes.oneOf(["text", "password", "email", "search", "url"])
-  //required: Boolean
 };
 TextField.defaultProps = {
   validation: undefined,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import TextField from "./components/input/TextField";
 import Form from "./components/form/Form";
@@ -43,8 +43,6 @@ function App() {
             placeholder="하고싶은말 아무거나 하세요"
             name="say"
             type="text"
-            myValidation={myValidation}
-            notValidMsg="비밀번호는 영문으로 작성하며, 소문자,대문자,특수문자,숫자를 모두 포함시켜야합니다"
           />
         </div>
         <div>
