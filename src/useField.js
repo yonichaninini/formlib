@@ -3,7 +3,7 @@ import { useContext } from "react";
 import formStateContext from "./contexts/formStateContext";
 
 export default function useField(name) {
-  const { initialData, scopePath, registerField } = useContext(
+  const { initialData, scopePath, registerField, isValid } = useContext(
     formStateContext
   );
 
@@ -12,6 +12,7 @@ export default function useField(name) {
   return {
     fieldName,
     registerField,
-    initialData
+    initialData,
+    isValid
   };
 }

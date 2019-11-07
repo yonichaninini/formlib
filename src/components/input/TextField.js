@@ -18,10 +18,15 @@ const TextField = ({
   const { fieldName, registerField } = useField(name);
   useEffect(() => {
     if (ref.current) {
-      registerField({ name: fieldName, ref: ref.current, path: "value" });
-      console.log(ref.current);
+      registerField({
+        name: fieldName,
+        ref: ref.current,
+        path: "value",
+        validationType: validation,
+        myValidationType: myValidation
+      });
     }
-  }, [fieldName, ref, registerField]);
+  }, [fieldName, myValidation, ref, registerField, validation]);
 
   let isValid = false;
   const style = {
@@ -68,7 +73,6 @@ const TextField = ({
       isValid = true;
     }
   }
-  console.log(isValid);
   return (
     <>
       <input
