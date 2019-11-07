@@ -1,6 +1,6 @@
 const Validation = {
   isEmail: email => {
-    let validationEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; //이메일
+    let validationEmail = /^[\d\w]([-_.]?[\d\w])*@[\d\w]([-_.]?[\d\w])*\.[\w]{2,3}$/; //이메일
     return validationEmail.test(email);
   },
   isPhoneNumber: phoneNumber => {
@@ -16,7 +16,7 @@ const Validation = {
     return validationUrl.test(url);
   },
   isPassword: passoword => {
-    let validationPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    let validationPassword = /^(?=[A-Z]+)(?=[a-z]+)(?=[\d]+)(?=[#?!@$%^&*-_]+).{8,}$/;
     //비밀번호는 영문으로 작성하며, 소문자,대문자,특수문자,숫자를 모두 포함시켜야합니다
     return validationPassword.test(passoword);
   }

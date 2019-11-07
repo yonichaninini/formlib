@@ -32,7 +32,8 @@ const Form = ({ children, onSubmit, initialData }) => {
         validationType === "email" ||
         validationType === "phoneNumber" ||
         validationType === "residentNumber" ||
-        validationType === "url"
+        validationType === "url" ||
+        validationType === "password"
       ) {
         if (validationType === "email") {
           isValid = Validation.isEmail(value);
@@ -41,6 +42,8 @@ const Form = ({ children, onSubmit, initialData }) => {
         } else if (validationType === "residentNumber") {
           isValid = Validation.isResidentNumber(value);
         } else if (validationType === "url") {
+          isValid = Validation.isUrl(value);
+        } else if (validationType === "password") {
           isValid = Validation.isUrl(value);
         }
       } else if (validationType === undefined) {

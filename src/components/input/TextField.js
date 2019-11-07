@@ -51,7 +51,8 @@ const TextField = ({
     validation === "email" ||
     validation === "phoneNumber" ||
     validation === "residentNumber" ||
-    validation === "url"
+    validation === "url" ||
+    validation === "password"
   ) {
     if (validation === "email") {
       isValid = Validation.isEmail(inputValue);
@@ -61,6 +62,8 @@ const TextField = ({
       isValid = Validation.isResidentNumber(inputValue);
     } else if (validation === "url") {
       isValid = Validation.isUrl(inputValue);
+    } else if (validation === "password") {
+      isValid = Validation.isPassword(inputValue);
     }
   } else if (validation === undefined) {
     if (myValidation !== undefined) {
