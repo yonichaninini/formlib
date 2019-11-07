@@ -4,6 +4,5 @@ export default createContext({
   initialData: {},
   errors: {},
   scopePath: "",
-  isValid: false,
   registerField: () => {}
 });

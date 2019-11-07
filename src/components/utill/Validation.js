@@ -30,6 +30,15 @@ const Validation = {
     } else {
       return false;
     }
+  },
+  isPassword: passoword => {
+    let validationPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    //비밀번호는 영문으로 작성하며, 소문자,대문자,특수문자,숫자를 모두 포함시켜야합니다
+    if (validationPassword.test(passoword)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 export default Validation;

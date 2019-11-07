@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+
 import TextField from "./components/input/TextField";
 import Form from "./components/form/Form";
 import Button from "./components/button/Button";
@@ -46,7 +47,7 @@ function App() {
           />
         </div>
         <div>
-          <Label>첫번째약관에 동의하시겠습니까?</Label>
+          <Label initialValue={true}>첫번째약관에 동의하시겠습니까?</Label>
           <CheckBox />
         </div>
         <div>
