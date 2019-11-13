@@ -27,8 +27,6 @@ const TextField = ({
       });
     }
   }, [fieldName, myValidation, ref, registerField, validation]);
-
-  let isValid = false;
   const style = {
     textInput: {
       width: "200px",
@@ -43,39 +41,12 @@ const TextField = ({
       fontSize: "10px"
     }
   };
-  const [inputValue, setInputValue] = useState(null);
+  const [value, setValue] = useState(null);
   const onchange = e => {
-    setInputValue(e.target.value);
+    setValue(e.target.value);
   };
-  if (
-    validation === "email" ||
-    validation === "phoneNumber" ||
-    validation === "residentNumber" ||
-    validation === "url" ||
-    validation === "password"
-  ) {
-    if (validation === "email") {
-      isValid = Validation.isEmail(inputValue);
-    } else if (validation === "phoneNumber") {
-      isValid = Validation.isPhoneNumber(inputValue);
-    } else if (validation === "residentNumber") {
-      isValid = Validation.isResidentNumber(inputValue);
-    } else if (validation === "url") {
-      isValid = Validation.isUrl(inputValue);
-    } else if (validation === "password") {
-      isValid = Validation.isPassword(inputValue);
-    }
-  } else if (validation === undefined) {
-    if (myValidation !== undefined) {
-      if (myValidation.test(inputValue)) {
-        isValid = true;
-      } else {
-        isValid = false;
-      }
-    } else {
-      isValid = true;
-    }
-  }
+  let isValid = false;
+  isValid = Validation.validate(validation, value, isValid, myValidation);
   return (
     <>
       <input

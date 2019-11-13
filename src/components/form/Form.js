@@ -6,8 +6,10 @@ import formStateContext from "../../contexts/formStateContext";
 
 const Form = ({ children, onSubmit, initialData }) => {
   const [fields, setFields] = useState([]);
+  console.log(fields);
   let isValid = false;
   const onHandleSubmit = e => {
+    e.preventDefault();
     let data = parseData();
     let valid = tryValidation();
     if (valid) {
@@ -28,36 +30,9 @@ const Form = ({ children, onSubmit, initialData }) => {
     const validationList = [];
     fields.forEach(({ ref, path, validationType, myValidationType }) => {
       const value = ref[path];
-      if (
-        validationType === "email" ||
-        validationType === "phoneNumber" ||
-        validationType === "residentNumber" ||
-        validationType === "url" ||
-        validationType === "password"
-      ) {
-        if (validationType === "email") {
-          isValid = Validation.isEmail(value);
-        } else if (validationType === "phoneNumber") {
-          isValid = Validation.isPhoneNumber(value);
-        } else if (validationType === "residentNumber") {
-          isValid = Validation.isResidentNumber(value);
-        } else if (validationType === "url") {
-          isValid = Validation.isUrl(value);
-        } else if (validationType === "password") {
-          isValid = Validation.isUrl(value);
-        }
-      } else if (validationType === undefined) {
-        if (myValidationType !== undefined) {
-          if (myValidationType.test(value)) {
-            isValid = true;
-          } else {
-            isValid = false;
-          }
-        } else {
-          isValid = true;
-        }
-      }
-      validationList.push(isValid);
+      validationList.push(
+        Validation.validate(validationType, value, isValid, myValidationType)
+      );
     });
     const validationFun = validationList => {
       return validationList === true;

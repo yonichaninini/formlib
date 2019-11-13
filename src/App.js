@@ -48,11 +48,11 @@ function App() {
         </div>
         <div>
           <Label initialValue={true}>첫번째약관에 동의하시겠습니까?</Label>
-          <CheckBox />
+          <CheckBox name="1" />
         </div>
         <div>
           <Label>이메일 수집을 동의하시겠습니까?</Label>
-          <CheckBox />
+          <CheckBox name="2" />
         </div>
         <div>
           <Button innerText="로그인" />
