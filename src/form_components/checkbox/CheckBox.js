@@ -12,7 +12,6 @@ const CheckBox = ({ name }) => {
         path: "value"
       });
     }
-    console.log(ref);
   }, [fieldName, ref, registerField]);
   return <input type="checkbox" />;
 };

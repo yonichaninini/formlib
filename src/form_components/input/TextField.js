@@ -11,7 +11,8 @@ const TextField = ({
   myValidation,
   notValidMsg,
   name,
-  required
+  required,
+  initialValue
   //style
 }) => {
   const ref = useRef(null);
@@ -41,7 +42,7 @@ const TextField = ({
       fontSize: "10px"
     }
   };
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState();
   const onchange = e => {
     setValue(e.target.value);
   };
@@ -57,6 +58,7 @@ const TextField = ({
         onChange={onchange}
         required={required}
         ref={ref}
+        value={initialValue ? initialValue : value}
       />
       <span className="notValidMsg" style={style.notValidMsg}>
         {isValid ? "" : notValidMsg}

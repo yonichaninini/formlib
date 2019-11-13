@@ -6,7 +6,6 @@ import formStateContext from "../../contexts/formStateContext";
 
 const Form = ({ children, onSubmit, initialData }) => {
   const [fields, setFields] = useState([]);
-  console.log(fields);
   let isValid = false;
   const onHandleSubmit = e => {
     e.preventDefault();
