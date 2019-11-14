@@ -42,12 +42,12 @@ const TextField = ({
       fontSize: "10px"
     }
   };
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(initialValue || "");
   const onchange = e => {
     setValue(e.target.value);
   };
   let isValid = false;
-  isValid = Validation.validate(validation, value, isValid, myValidation);
+  isValid = Validation.validate(validation, value, myValidation);
   return (
     <>
       <input
@@ -58,7 +58,7 @@ const TextField = ({
         onChange={onchange}
         required={required}
         ref={ref}
-        value={initialValue ? initialValue : value}
+        defaultValue={initialValue}
       />
       <span className="notValidMsg" style={style.notValidMsg}>
         {isValid ? "" : notValidMsg}
@@ -75,6 +75,11 @@ TextField.propTypes = {
     "phoneNumber",
     "residentNumber",
     "url"
+  ]),
+  initialValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+    PropTypes.number
   ]),
   type: PropTypes.oneOf(["text", "password", "email", "search", "url"])
 };

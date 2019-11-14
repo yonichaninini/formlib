@@ -20,7 +20,8 @@ const Validation = {
     //비밀번호는 영문으로 작성하며, 소문자,대문자,특수문자,숫자를 모두 포함시켜야합니다
     return validationPassword.test(passoword);
   },
-  validate: (validationType, value, isValid, myValidationType) => {
+  validate: (validationType, value, myValidationType) => {
+    let isValid = false;
     if (validationType === "email") {
       isValid = Validation.isEmail(value);
     } else if (validationType === "phoneNumber") {
@@ -31,16 +32,8 @@ const Validation = {
       isValid = Validation.isUrl(value);
     } else if (validationType === "password") {
       isValid = Validation.isUrl(value);
-    } else if (validationType === undefined) {
-      if (myValidationType !== undefined) {
-        if (myValidationType.test(value)) {
-          isValid = true;
-        } else {
-          isValid = false;
-        }
-      } else {
-        isValid = true;
-      }
+    } else {
+      isValid = myValidationType ? myValidationType.test(value) : true;
     }
     return isValid;
   }

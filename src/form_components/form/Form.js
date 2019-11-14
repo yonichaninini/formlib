@@ -6,7 +6,6 @@ import formStateContext from "../../contexts/formStateContext";
 
 const Form = ({ children, onSubmit, initialData }) => {
   const [fields, setFields] = useState([]);
-  let isValid = false;
   const onHandleSubmit = e => {
     e.preventDefault();
     let data = parseData();
@@ -14,7 +13,6 @@ const Form = ({ children, onSubmit, initialData }) => {
     if (valid) {
       onSubmit(data);
     } else {
-      e.preventDefault();
     }
   };
   function parseData() {
@@ -30,7 +28,7 @@ const Form = ({ children, onSubmit, initialData }) => {
     fields.forEach(({ ref, path, validationType, myValidationType }) => {
       const value = ref[path];
       validationList.push(
-        Validation.validate(validationType, value, isValid, myValidationType)
+        Validation.validate(validationType, value, myValidationType)
       );
     });
     const validationFun = validationList => {
@@ -51,5 +49,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   children: PropTypes.node
 };
-Form.defaultProps = {};
+Form.defaultProps = {
+  onSubmit: () => {}
+};
 export default Form;
